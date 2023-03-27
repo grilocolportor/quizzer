@@ -1,1 +1,0 @@
-export 'package:quizzer/infrastructure/navigation/bindings/controllers/home.controller.binding.dart'; 
