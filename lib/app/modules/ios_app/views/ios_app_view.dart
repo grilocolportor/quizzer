@@ -45,7 +45,7 @@ class IosAppView extends GetView<IosAppController> {
             height: sceneController.height.value, 
             child:  QuizzerIdentifier(
               backgroundColor: sceneController.setAnswerBoxColor.value ? Colors.green : Colors.red,
-              text: 'Testando...',
+              text: sceneController.answer.value,
             )),
       ),
     );

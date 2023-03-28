@@ -20,6 +20,7 @@ class IosAppController extends GetxController {
   var anchorList = <ARKitReferenceImage>[].obs;
 
   var setAnswerBoxColor = false.obs;
+  var answer = ''.obs;
 
   @override
   void onInit() async {
@@ -80,11 +81,6 @@ class IosAppController extends GetxController {
     t.rotateX(math.pi / 2);
 
     transform.value = t;
-
-    var media = (transform.value.row0.x +
-            transform.value.row0.y +
-            transform.value.row0.z) /
-        3;
   }
 
   Future<void> updatePosition(ARKitImageAnchor anchor) async {
@@ -103,38 +99,11 @@ class IosAppController extends GetxController {
 
     final pointWorldSpace = [topRight, bottonRight, bottonLeft, topLeft];
 
-    if (topLeft[0]   < 0 &&
-        bottonLeft[0]  < 0 &&
-        topRight[0] > 0 &&
-        bottonRight[0]> 0) {
-      print('------------------------AAAAAAAAAAAA');
-    }
-
-    if (topLeft[0]   > 0 &&
-        bottonLeft[0]  < 0 &&
-        topRight[0] < 0 &&
-        bottonRight[0] > 0) {
-      print('------------------------BBBBBBBBBBBBBBBBBB');
-    }
-
-    if (topLeft[0]   > 0 &&
-        bottonLeft[0]  > 0 &&
-        topRight[0] < 0 &&
-        bottonRight[0] < 0) {
-      print('------------------------CCCCCCCCCCCCCCCCCC');
-    }
-
-     if (topLeft[0]   < 0 &&
-        bottonLeft[0]  > 0 &&
-        topRight[0] > 0 &&
-        bottonRight[0] < 0) {
-      print('------------------------DDDDDDDDDDDDDDDDDD');
-    }
-
-    // print('======================>topLeft: $topLeft');
-    // print('======================>bottonLeft: $bottonLeft');
-    // print('======================>topRight: $topRight');
-    // print('======================>bottonRight: $bottonRight');
+    answer.value = _getAnswer(
+        bottonLeft: bottonLeft,
+        topLeft: topLeft,
+        bottonRight: bottonRight,
+        topRight: topRight);
 
     final pointViewprtSpace = pointWorldSpace.map(
       (p) => arkitController.projectPoint(vector.Vector3(p.x, p.y, p.z)),
@@ -149,5 +118,35 @@ class IosAppController extends GetxController {
     //     pointViewprtSpaceResults[0]!.distanceTo(pointViewprtSpaceResults[3]!);
     // height.value =
     //     pointViewprtSpaceResults[1]!.distanceTo(pointViewprtSpaceResults[2]!);
+  }
+
+   String _getAnswer(
+      {required vector.Vector4 topLeft,
+      required vector.Vector4 bottonLeft,
+      required vector.Vector4 topRight,
+      required vector.Vector4 bottonRight}) {
+    if (topLeft[0] < 0 &&
+        bottonLeft[0] < 0 &&
+        topRight[0] > 0 &&
+        bottonRight[0] > 0) {
+      return 'A';
+    } else if (topLeft[0] > 0 &&
+        bottonLeft[0] < 0 &&
+        topRight[0] < 0 &&
+        bottonRight[0] > 0) {
+      return 'B';
+    } else if (topLeft[0] > 0 &&
+        bottonLeft[0] > 0 &&
+        topRight[0] < 0 &&
+        bottonRight[0] < 0) {
+      return 'C';
+    } else if (topLeft[0] < 0 &&
+        bottonLeft[0] > 0 &&
+        topRight[0] > 0 &&
+        bottonRight[0] < 0) {
+      return 'D';
+    } else {
+      return '';
+    }
   }
 }

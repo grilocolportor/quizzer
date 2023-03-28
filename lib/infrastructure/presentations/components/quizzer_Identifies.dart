@@ -35,7 +35,7 @@ class _QuizzerIdentifierState extends State<QuizzerIdentifier> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                   color: Colors.black,
-                  fontSize: 12,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold))),
     );
   }
