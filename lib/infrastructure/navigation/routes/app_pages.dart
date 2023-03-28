@@ -17,7 +17,7 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.IOS_APP,
-      page: () =>  IosAppView(),
+      page: () => const IosAppView(),
       binding: IosAppBinding(),
     ),
     GetPage(

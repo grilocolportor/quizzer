@@ -19,6 +19,8 @@ class IosAppController extends GetxController {
 
   var anchorList = <ARKitReferenceImage>[].obs;
 
+  var setAnswerBoxColor = false.obs;
+
   @override
   void onInit() async {
     await getNetWorkImageTarget();
@@ -78,6 +80,11 @@ class IosAppController extends GetxController {
     t.rotateX(math.pi / 2);
 
     transform.value = t;
+
+    var media = (transform.value.row0.x +
+            transform.value.row0.y +
+            transform.value.row0.z) /
+        3;
   }
 
   Future<void> updatePosition(ARKitImageAnchor anchor) async {
@@ -96,6 +103,39 @@ class IosAppController extends GetxController {
 
     final pointWorldSpace = [topRight, bottonRight, bottonLeft, topLeft];
 
+    if (topLeft[0]   < 0 &&
+        bottonLeft[0]  < 0 &&
+        topRight[0] > 0 &&
+        bottonRight[0]> 0) {
+      print('------------------------AAAAAAAAAAAA');
+    }
+
+    if (topLeft[0]   > 0 &&
+        bottonLeft[0]  < 0 &&
+        topRight[0] < 0 &&
+        bottonRight[0] > 0) {
+      print('------------------------BBBBBBBBBBBBBBBBBB');
+    }
+
+    if (topLeft[0]   > 0 &&
+        bottonLeft[0]  > 0 &&
+        topRight[0] < 0 &&
+        bottonRight[0] < 0) {
+      print('------------------------CCCCCCCCCCCCCCCCCC');
+    }
+
+     if (topLeft[0]   < 0 &&
+        bottonLeft[0]  > 0 &&
+        topRight[0] > 0 &&
+        bottonRight[0] < 0) {
+      print('------------------------DDDDDDDDDDDDDDDDDD');
+    }
+
+    // print('======================>topLeft: $topLeft');
+    // print('======================>bottonLeft: $bottonLeft');
+    // print('======================>topRight: $topRight');
+    // print('======================>bottonRight: $bottonRight');
+
     final pointViewprtSpace = pointWorldSpace.map(
       (p) => arkitController.projectPoint(vector.Vector3(p.x, p.y, p.z)),
     );
@@ -103,9 +143,11 @@ class IosAppController extends GetxController {
 
     x.value = pointViewprtSpaceResults[2]!.x;
     y.value = pointViewprtSpaceResults[2]!.y;
-    width.value =
-        pointViewprtSpaceResults[0]!.distanceTo(pointViewprtSpaceResults[3]!);
-    height.value =
-        pointViewprtSpaceResults[1]!.distanceTo(pointViewprtSpaceResults[2]!);
+    width.value = 50;
+    height.value = 50;
+    // width.value =
+    //     pointViewprtSpaceResults[0]!.distanceTo(pointViewprtSpaceResults[3]!);
+    // height.value =
+    //     pointViewprtSpaceResults[1]!.distanceTo(pointViewprtSpaceResults[2]!);
   }
 }

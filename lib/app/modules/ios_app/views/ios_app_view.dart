@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../infrastructure/presentations/components/quizzer_Identifies.dart';
 import '../controllers/ios_app_controller.dart';
 
 class IosAppView extends GetView<IosAppController> {
@@ -38,13 +39,13 @@ class IosAppView extends GetView<IosAppController> {
         left: sceneController.x.value,
         top: sceneController.y.value,
         child: Container(
-            transform: sceneController.transform.value,
-            width: sceneController.width.value,
-            height: sceneController.height.value,
-            child: Container(
-              height: 15,
-              width: 20,
-              color: Colors.amber,
+          color: Colors.transparent,
+           // transform: sceneController.transform.value,
+           width:  sceneController.width.value,
+            height: sceneController.height.value, 
+            child:  QuizzerIdentifier(
+              backgroundColor: sceneController.setAnswerBoxColor.value ? Colors.green : Colors.red,
+              text: 'Testando...',
             )),
       ),
     );

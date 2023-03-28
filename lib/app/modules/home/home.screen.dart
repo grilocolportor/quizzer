@@ -6,6 +6,7 @@ import 'controllers/home.controller.dart';
 
 class HomeScreen extends GetView<HomeController> {
   const HomeScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +15,10 @@ class HomeScreen extends GetView<HomeController> {
         centerTitle: true,
       ),
       body: const Center(
-        child: Text(
-          'HomeScreen is working',
-          style: TextStyle(fontSize: 20),
-        ),
+        child:  SizedBox()
       ),
     );
   }
+
+ 
 }
